@@ -9,9 +9,9 @@ class Template extends MY_Controller
         $this->load->view($page, $data);
     }
 
-    public function blog($data)
+    public function blog()
     {
         $page = 'template/layout/blog';
-        $this->load->view($page, $data);
+        $this->load->view($page);
     }
 }

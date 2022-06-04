@@ -15,7 +15,6 @@ class Home extends MY_Controller
 
     public function index()
     {
-        $data = [];
-        $this->template->blog($data);
+        $this->template->blog();
     }
 }
