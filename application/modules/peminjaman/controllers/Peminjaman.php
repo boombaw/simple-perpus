@@ -18,7 +18,7 @@ class Peminjaman extends MY_Controller
             'content' => $page,
         ];
 
-        $this->template->admin($data);
+        $this->_admin($data);
     }
 
     public function list()
@@ -30,6 +30,6 @@ class Peminjaman extends MY_Controller
             'content' => $page,
         ];
 
-        $this->template->admin($data);
+        $this->_admin($data);
     }
 }

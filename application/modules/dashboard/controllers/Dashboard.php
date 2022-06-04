@@ -17,6 +17,6 @@ class Dashboard extends MY_Controller
             'content' => $page,
         ];
 
-        $this->template->admin($data);
+        $this->_admin($data);
     }
 }
