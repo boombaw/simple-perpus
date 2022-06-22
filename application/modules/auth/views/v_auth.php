@@ -8,6 +8,7 @@
     <title>Login / Register</title>
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/styles.css') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= base_url('assets/dist/js/toast/jquery.toast.min.css'); ?>">
 
 </head>
 
@@ -55,22 +56,28 @@
                 </div>
                 <div class="overflow-hidden">
                     <!-- Login -->
-                    <form id="login" action="" class="m-5 font-poppins absolute left-0 transition-all duration-[.5s] ease-in-out">
-                        <input type="text" class=" bg-transparent w-full border-b-[1px] my-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder="Username" class="form-input" required autocomplete="off" name="username" id="userlogin">
-                        <input type="text" class=" bg-transparent w-full mx-auto border-b-[1px] my-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder=" Password" class="form-input" required autocomplete="off" name="password" id="passlogin">
+                    <form id="frmLogin" action="<?= base_url('auth/login'); ?>" class="m-5 font-poppins absolute left-0 transition-all duration-[.5s] ease-in-out w-[87%]">
+                        <div class="">
+                            <input type="text" class=" bg-transparent w-full border-b-[1px] mt-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder="Username" class="form-input" required autocomplete="off" name="username" id="userlogin">
+                        </div>
+                        <input type="password" class=" bg-transparent w-full mx-auto border-b-[1px] my-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder=" Password" class="form-input" required autocomplete="off" name="password" id="passlogin">
                         <div>
-                            <button type="submit" class="btn btn-sm w-full bg-gradient-to-r from-orange-500 to-orange-200 border-none text-slate-700">Login</button>
+                            <button type="submit" id="btnLogin" class="btn btn-sm w-full bg-gradient-to-r from-orange-500 to-orange-200 border-none text-slate-700 focus:outline-none focus-visible:outline-none active:outline-none">Login</button>
                         </div>
                     </form>
                     <!-- Login -->
 
                     <!-- Register -->
-                    <form id="register" action="" class="m-5 font-poppins absolute left-[450px] transition-all duration-[.5s] ease-in-out">
-                        <input type="text" class=" bg-transparent w-full mx-auto border-b-[1px] my-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder="Username" class="form-input" required autocomplete="off" name="username" id="userregister">
-                        <input type="text" class=" bg-transparent w-full mx-auto border-b-[1px] my-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder=" Password" class="form-input" required autocomplete="off" name="password" id="passregister">
-                        <input type="text" class=" bg-transparent w-full mx-auto border-b-[1px] my-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder=" Confirm Password" class="form-input" required autocomplete="off" name="confpassword" id="confpassregister">
+                    <form id="register" action="<?= base_url('auth/register'); ?>" class="m-5 font-poppins absolute left-[450px] transition-all duration-[.5s] ease-in-out">
                         <div>
-                            <button type="submit" class="btn btn-sm w-full bg-gradient-to-r from-orange-500 to-orange-200 border-none text-slate-700">Register</button>
+                            <input type="text" class=" bg-transparent w-full mx-auto border-b-[1px] mt-5 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder="Username" class="form-input" required autocomplete="off" name="username" id="userregister">
+                            <span class="font-thin text-xs pt-1 text-red-400 hidden my-5" id="valid_userregister">asdas</span>
+
+                        </div>
+                        <input type="password" class=" bg-transparent w-full mx-auto border-b-[1px] my-5 mt-7 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder=" Password" class="form-input" required autocomplete="off" name="password" id="passregister">
+                        <input type="password" class=" bg-transparent w-full mx-auto border-b-[1px] my-2 border-slate-300 focus:transition focus:duration-[.5s] delay-200 focus:ease-in-out focus:border-orange-300 focus:outline-none" placeholder=" Confirm Password" class="form-input" required autocomplete="off" name="confpassword" id="confpassregister">
+                        <div>
+                            <button type="submit" class="btn btn-sm w-full bg-gradient-to-r from-orange-500 to-orange-200 border-none text-slate-700 focus:ring-0 focus:outline-none focus-visible:outline-none active:outline-none">Register</button>
                         </div>
                     </form>
                     <!-- Register -->
@@ -79,13 +86,19 @@
         </div>
     </div>
 
+    <script src="<?= base_url('assets/dist/js/jquery/3.5.1/jquery-3.5.1.js') ?>"></script>
+    <!-- Toast -->
+    <script src="<?= base_url('assets/dist/js/toast/jquery.toast.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/dist/js/auth/login.js'); ?>"></script>
+    <script src="<?= base_url('assets/dist/js/auth/register.js'); ?>"></script>
 
     <script>
-        let formLogin = document.getElementById('login')
+        let formLogin = document.getElementById('frmLogin')
         let formRegister = document.getElementById('register')
         let btn = document.getElementById('btn')
 
         function register() {
+            formLogin.reset()
             formLogin.style.left = "-650px"
             formRegister.style.left = "3px"
             btn.style.left = "166px"
@@ -93,6 +106,7 @@
         }
 
         function login() {
+            formRegister.reset();
             formLogin.style.left = "-5px"
             formRegister.style.left = "480px"
             btn.style.left = "56px"

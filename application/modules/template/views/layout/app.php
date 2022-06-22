@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= base_url('assets/dist/js/toast/jquery.toast.min.css'); ?>">
 </head>
 
 <body class="font-poppins">
@@ -17,8 +18,8 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content scrollbar relative">
             <!-- Header here -->
-            <header>
-                <div class="navbar bg-gray-50 mb-5 fixed top-0 z-30">
+            <header class="">
+                <div class="navbar bg-gray-50 mb-5 top-0 z-30 fixed">
                     <div class="flex-none">
                         <!-- <button class="btn btn-square btn-ghost "> -->
                         <label for="my-drawer-2" class="btn btn-ghost drawer-button">
@@ -28,25 +29,18 @@
                         </label>
                         <!-- </button> -->
                     </div>
-                    <div class="flex-1 ">
+                    <div class="flex-1">
                         <a class="btn btn-ghost normal-case text-xl">Perpustakaan</a>
                     </div>
                     <div class="dropdown dropdown-end">
                         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                             <div class="w-10 rounded-full">
                                 <img src="https://api.lorem.space/image/face?hash=33791" />
-                                <!-- <img src="<?= base_url('assets/dist/img/tri.png'); ?>" alt="avatar"> -->
                             </div>
                         </label>
                         <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li>
-                                <a class="justify-between">
-                                    Profile
-                                    <span class="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li><a>Hai, <?= $this->session->nama; ?></a></li>
+                            <li><a href="<?= base_url('auth/logout'); ?>">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -85,17 +79,19 @@
                             </div>&nbsp;Daftar Buku
                         </a>
                     </li>
-                    <li>
-                        <a href="<?= base_url('peminjaman/input'); ?>">
-                            <div class="btn-icon-dashboard">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                </svg>
-                            </div>
-                            &nbsp;Input Peminjaman
-                        </a>
-                    </li>
+                    <?php if ($this->session->role == 1) : ?>
+                        <li>
+                            <a href="<?= base_url('peminjaman/input'); ?>">
+                                <div class="btn-icon-dashboard">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                    </svg>
+                                </div>
+                                &nbsp;Input Peminjaman
+                            </a>
+                        </li>
+                    <?php endif ?>
                     <li>
                         <a href="<?= base_url('peminjaman/list'); ?>">
                             <div class="btn-icon-dashboard">
@@ -107,26 +103,28 @@
                             &nbsp;Daftar Peminjaman
                         </a>
                     </li>
-                    <li>
-                        <a href="<?= base_url('penerbit'); ?>">
-                            <div class="btn-icon-dashboard">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
-                                </svg>
-                            </div>
-                            &nbsp;Penerbit
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('kategori'); ?>">
-                            <div class="btn-icon-dashboard">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
-                                </svg>
-                            </div>
-                            &nbsp;Kategori
-                        </a>
-                    </li>
+                    <?php if ($this->session->role == 1) : ?>
+                        <li>
+                            <a href="<?= base_url('penerbit'); ?>">
+                                <div class="btn-icon-dashboard">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                                    </svg>
+                                </div>
+                                &nbsp;Penerbit
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('kategori'); ?>">
+                                <div class="btn-icon-dashboard">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                                    </svg>
+                                </div>
+                                &nbsp;Kategori
+                            </a>
+                        </li>
+                    <?php endif ?>
                     <li>
                         <a href="<?= base_url('about'); ?>">
                             <div class="btn-icon-dashboard">
@@ -140,7 +138,7 @@
                 </ul>
                 <hr>
                 <div class="fixed left-4 bottom-4 px-3 py-2">
-                    <a href="<?= base_url('about'); ?>" class="flex flex-nowrap">
+                    <a href="<?= base_url('auth/logout'); ?>" class="flex flex-nowrap">
                         <div class="btn-icon-dashboard">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
@@ -162,6 +160,16 @@
     <script src="<?= base_url('assets/dist/js/datatables/jquery.dataTables.min.js'); ?>"></script>
     <script src="<?= base_url('assets/dist/js/datatables/2.3.0/dataTables.responsive.js'); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Toast -->
+    <script src="<?= base_url('assets/dist/js/toast/jquery.toast.min.js'); ?>"></script>
+    <!-- Custom.js -->
+    <script src="<?= base_url('assets/dist/js/custom.js') ?>"></script>
+    <script src="<?= base_url('assets/dist/js/buku.js') ?>"></script>
+    <script src="<?= base_url('assets/dist/js/kategori.js') ?>"></script>
+    <script src="<?= base_url('assets/dist/js/penerbit.js') ?>"></script>
+    <script src="<?= base_url('assets/dist/js/peminjaman.js') ?>"></script>
+
     <script>
         $(document).ready(function() {
             $(".select2").select2();

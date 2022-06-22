@@ -17,6 +17,15 @@ class MY_Controller extends MX_Controller
     function _blog()
     {
         $page = 'template/layout/blog';
-        $this->load->view($page);
+
+        $data = [];
+        $this->load->model('Buku/Buku_model', 'buku');
+
+        $buku = $this->buku->get_books();
+        $data = [
+            'buku' => $buku
+        ];
+
+        $this->load->view($page, $data);
     }
 }

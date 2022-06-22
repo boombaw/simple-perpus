@@ -38,7 +38,7 @@
         </ul>
     </div>
     <div class="scroll-auto h-screen" id="one">
-        <div class="w-full h-screen bg-scroll relative bg-cover bg-no-repeat" style="background-image: url('<?= base_url("assets/dist/img/books-2.jpg") ?>');">
+        <div class="w-full h-screen bg-scroll relative bg-cover bg-no-repeat" style="background-image: url('<?= base_url("assets/dist/img/books-2.webp") ?>');">
             <div class="w-full h-[50vh] bg-opacity-60"></div>
             <div class="hero-content text-center text-neutral-content lg:mx-auto">
                 <div class="max-w-md lg:max-w-full">
@@ -63,118 +63,18 @@
                                     <th>Judul Buku</th>
                                     <th>Tahun Terbit</th>
                                     <th>Kategori</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- row 1 -->
-                                <tr>
-                                    <th>1</th>
-                                    <td>Cy Ganderton</td>
-                                    <td>Quality Control Specialist</td>
-                                    <td>Blue</td>
-                                    <td>
-                                        <div class="flex flex-row space-x-2">
-                                            <label for="my-modal-3" class="btn btn-xs bg-sky-500 border-none modal-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                                                </svg>&nbsp;Detail</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- row 2 -->
-                                <tr class="hover">
-                                    <th>2</th>
-                                    <td>Hart Hagerty</td>
-                                    <td>Desktop Support Technician</td>
-                                    <td>Purple</td>
-                                    <td></td>
-                                </tr>
-                                <!-- row 3 -->
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Brice Swyre</td>
-                                    <td>Tax Accountant</td>
-                                    <td>Red</td>
-                                    <td></td>
-                                </tr>
+                                <?php $i = 1;
+                                foreach ($buku as $val) : ?>
+                                    <tr>
+                                        <th><?= $i++; ?></th>
+                                        <td><?= $val->title; ?></td>
+                                        <td><?= $val->pub_year; ?></td>
+                                        <td><?= $val->category_name; ?></td>
+                                    </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
