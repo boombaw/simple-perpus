@@ -75,12 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'Mastah787566',
+	'hostname' => 'mysql-2e11fe4c-mrboombaw32-aeca.e.aivencloud.com',
+	'username' => 'avnadmin',
+	'password' => 'AVNS_i9xWNQMqumLxmb4Ax7B',
 	'database' => 'perpus',
 	'dbdriver' => 'mysqli',
-	'port' => 3307,
+	'port' => 19350,
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
@@ -91,7 +91,7 @@ $db['default'] = array(
 	'swap_pre' => '',
 	'encrypt' => FALSE,
 	'compress' => FALSE,
-	'stricton' => FALSE,
+	// 'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
 );
