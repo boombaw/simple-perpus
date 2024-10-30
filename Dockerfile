@@ -19,10 +19,10 @@ RUN composer install --no-dev --ignore-platform-reqs
 
 COPY . .
 
-# Konfigurasi NGINX
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# # Konfigurasi NGINX
+# COPY ./nginx.conf /etc/nginx/nginx.conf
 
 CMD ["php-fpm"]
 
-# Expose port 8080
-EXPOSE 8080
+# Expose port 8000
+EXPOSE 8000
