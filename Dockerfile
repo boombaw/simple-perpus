@@ -25,4 +25,4 @@ COPY . .
 CMD ["php-fpm"]
 
 # Expose port 8000
-EXPOSE 8000
+# EXPOSE 8000
