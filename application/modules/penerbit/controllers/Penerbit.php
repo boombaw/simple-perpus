@@ -3,192 +3,198 @@
 class Penerbit extends MY_Controller
 {
 
-    public $viewpath = "penerbit";
+	public $viewpath = "penerbit";
 
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Penerbit_model', 'penerbit');
-    }
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Penerbit_model', 'penerbit');
+	}
 
-    public function index()
-    {
-        $page = $this->viewpath . "/v_penerbit";
-        $data = [
-            'content' => $page,
-        ];
+	public function index()
+	{
+		$page = $this->viewpath . "/v_penerbit";
+		$data = [
+			'content' => $page,
+		];
 
-        $this->_admin($data);
-    }
+		$this->_admin($data);
+	}
 
-    public function list()
-    {
-        $list = $this->penerbit->get_all();
+	public function list()
+	{
+		$list = $this->penerbit->get_all();
 
-        $i = 1;
-        $data = [];
-        foreach ($list as $val) {
-            $data[] = [
-                'no' => $i,
-                'id' => $val->id,
-                'name' => $val->name,
-                'address' => $val->address,
-                'phone' => $val->phone,
-            ];
+		$i = 1;
+		$data = [];
+		foreach ($list as $val) {
+			$data[] = [
+				'no' => $i,
+				'id' => $val->id,
+				'name' => $val->name,
+				'address' => $val->address,
+				'phone' => $val->phone,
+			];
 
-            ++$i;
-        }
+			++$i;
+		}
 
-        echo json_encode($data);
-    }
+		echo json_encode($data);
+	}
 
-    public function add()
-    {
-        if (array_key_exists('pbtid', $_POST)) {
-            $this->_update($_POST);
-        } else {
-            $nama_penerbit = $this->input->post('nama_penerbit', true);
-            $alamat_penerbit = $this->input->post('alamat_penerbit', true);
-            $tlp_penerbit = $this->input->post('tlp_penerbit', true);
+	public function add()
+	{
+		if (array_key_exists('pbtid', $_POST)) {
+			$this->_update($_POST);
+		} else {
+			$nama_penerbit = $this->input->post('nama_penerbit', true);
+			$alamat_penerbit = $this->input->post('alamat_penerbit', true);
+			$tlp_penerbit = $this->input->post('tlp_penerbit', true);
 
-            $condition = ['name' => trim($nama_penerbit)];
-            $exist = $this->penerbit->is_exist($condition);
+			$condition = ['name' => trim($nama_penerbit)];
+			$exist = $this->penerbit->is_exist($condition);
 
-            $response = [];
+			$response = [];
 
-            if ($exist) {
-                $response = [
-                    'code' => 400,
-                    'message' => 'Penerbit sudah terdaftar'
-                ];
-            } else {
+			if ($exist) {
+				$response = [
+					'code' => 400,
+					'message' => 'Penerbit sudah terdaftar'
+				];
+			} else {
 
-                $data = [
-                    'name' => trim($nama_penerbit),
-                    'address' => trim($alamat_penerbit),
-                    'phone' => trim($tlp_penerbit)
-                ];
+				$data = [
+					'name' => trim($nama_penerbit),
+					'address' => trim($alamat_penerbit),
+					'phone' => trim($tlp_penerbit)
+				];
 
-                $this->db->trans_begin();
-                $this->penerbit->insert($data);
+				$this->db->trans_begin();
+				$this->penerbit->insert($data);
 
-                if ($this->db->trans_status() === FALSE) {
-                    $response = [
-                        'code' => 500,
-                        'message' => 'Penerbit baru gagal di tambahkan',
-                    ];
-                } else {
-                    $this->db->trans_commit();
+				if ($this->db->trans_status() === FALSE) {
+					$response = [
+						'code' => 500,
+						'message' => 'Penerbit baru gagal di tambahkan',
+					];
+				} else {
+					$this->db->trans_commit();
 
-                    $response = [
-                        'code' => 200,
-                        'message' => 'Penerbit baru berhasil di tambahkan',
-                    ];
-                }
-            }
+					$response = [
+						'code' => 200,
+						'message' => 'Penerbit baru berhasil di tambahkan',
+					];
+				}
+			}
 
-            echo json_encode($response);
-        }
-    }
+			echo json_encode($response);
+		}
+	}
 
-    public function _update($data)
-    {
-        $nama_penerbit = $data['nama_penerbit'];
-        $alamat_penerbit = $data['alamat_penerbit'];
-        $tlp_penerbit = $data['tlp_penerbit'];
+	public function _update($data)
+	{
+		$nama_penerbit = $data['nama_penerbit'];
+		$alamat_penerbit = $data['alamat_penerbit'];
+		$tlp_penerbit = $data['tlp_penerbit'];
 
-        $id_penerbit = $data['pbtid'];
+		$id_penerbit = $data['pbtid'];
 
-        $condition = ['name' => trim($nama_penerbit)];
-        $exist = $this->penerbit->is_exist($condition);
+		$condition = ['name' => trim($nama_penerbit)];
+		$exist = $this->penerbit->is_exist($condition);
 
-        $response = [];
+		$response = [];
 
-        if ($exist) {
-            $response = [
-                'code' => 400,
-                'message' => 'Penerbit sudah terdaftar'
-            ];
-        } else {
+		if ($exist) {
+			$response = [
+				'code' => 400,
+				'message' => 'Penerbit sudah terdaftar'
+			];
+		} else {
 
-            $data = [
-                'name' => trim($nama_penerbit),
-                'address' => trim($alamat_penerbit),
-                'phone' => trim($tlp_penerbit)
-            ];
+			$data = [
+				'name' => trim($nama_penerbit),
+				'address' => trim($alamat_penerbit),
+				'phone' => trim($tlp_penerbit)
+			];
 
-            $condition = [
-                'id' => $id_penerbit
-            ];
+			$condition = [
+				'id' => $id_penerbit
+			];
 
-            $this->db->trans_begin();
-            $this->penerbit->update($data, $condition);
+			$this->db->trans_begin();
+			$this->penerbit->update($data, $condition);
 
-            if ($this->db->trans_status() === FALSE) {
-                $response = [
-                    'code' => 500,
-                    'message' => 'Penerbit gagal di ubah',
-                ];
-            } else {
-                $this->db->trans_commit();
+			if ($this->db->trans_status() === FALSE) {
+				$response = [
+					'code' => 500,
+					'message' => 'Penerbit gagal di ubah',
+				];
+			} else {
+				$this->db->trans_commit();
 
-                $response = [
-                    'code' => 200,
-                    'message' => 'Penerbit berhasil di ubah',
-                ];
-            }
-        }
+				$response = [
+					'code' => 200,
+					'message' => 'Penerbit berhasil di ubah',
+				];
+			}
+		}
 
-        echo json_encode($response);
-    }
+		echo json_encode($response);
+	}
 
-    public function save()
-    {
-    }
+	public function save() {}
 
-    public function edit()
-    {
-    }
+	public function edit() {}
 
-    public function update()
-    {
-    }
+	public function update() {}
 
-    public function delete()
-    {
-        $id_penerbit = $this->input->post('id', true);
+	public function delete()
+	{
+		$id_penerbit = $this->input->post('id', true);
 
-        $id_exist = $this->penerbit->id_exist($id_penerbit);
+		$id_exist = $this->penerbit->id_exist($id_penerbit);
 
-        if ($id_exist) {
-            $response = [
-                'code' => 400,
-                'message' => 'Penerbit tidak terdaftar'
-            ];
-        } else {
+		if ($id_exist) {
+			$response = [
+				'code' => 400,
+				'message' => 'Penerbit tidak terdaftar'
+			];
+		} else {
 
-            $condition = [
-                'id' => $id_penerbit
-            ];
+			$has_book = $this->db->get_where('tbl_buku', [
+				'publisher_id' => $id_penerbit
+			]);
 
-            $this->db->trans_begin();
-            $this->penerbit->delete($condition);
 
-            if ($this->db->trans_status() === FALSE) {
-                $response = [
-                    'code' => 500,
-                    'message' => 'Penerbit gagal di hapus',
-                ];
-            } else {
-                $this->db->trans_commit();
+			if ($has_book->num_rows() > 0) {
+				$response = [
+					'code' => 500,
+					'message' => 'Penerbit gagal di hapus, penerbit digunakan pada buku lain',
+				];
+			} else {
+				$condition = [
+					'id' => $id_penerbit
+				];
 
-                $response = [
-                    'code' => 200,
-                    'message' => 'Penerbit berhasil di hapus',
-                ];
-            }
-        }
+				$this->db->trans_begin();
+				$this->penerbit->delete($condition);
 
-        echo json_encode($response);
-    }
+				if ($this->db->trans_status() === FALSE) {
+					$response = [
+						'code' => 500,
+						'message' => 'Penerbit gagal di hapus',
+					];
+				} else {
+					$this->db->trans_commit();
+
+					$response = [
+						'code' => 200,
+						'message' => 'Penerbit berhasil di hapus',
+					];
+				}
+			}
+		}
+
+		echo json_encode($response);
+	}
 }

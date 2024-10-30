@@ -11,3 +11,8 @@ Aplikasi Perpustakaan Sederhana
 ### Desc
 
 > Aplikasi ini di buat untuk tugas implementasi pengujian perangkat lunak
+
+untuk menjalan aplikasi ada dua cara
+
+- memanggil dari xampp
+- atau php -S localhost:8080
