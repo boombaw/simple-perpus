@@ -144,6 +144,8 @@ function detailBuku(e) {
 }
 
 function updateBuku(e) {
+	$("#judul").focus();
+
 	let button = e.getAttribute("data-obj");
 	let buttonData = JSON.parse(button);
 
@@ -182,6 +184,8 @@ function updateBuku(e) {
 	btnSubmit.addClass("bg-orange-500");
 	btnSubmit.addClass("bg-orange-700");
 	btnSubmit.text("Ubah Buku");
+
+	window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function toggleButtonTambahB() {

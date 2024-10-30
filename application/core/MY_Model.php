@@ -2,66 +2,105 @@
 
 class MY_Model extends CI_Model
 {
-    protected $_table;
+	protected $_table;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
-    public function get_all()
-    {
-        $data = $this->db->get($this->_table);
+	/**
+	 * Find Data
+	 *
+	 * @param  string tableName but is optional
+	 * @param  string or array $value
+	 * @return object
+	 */
+	public function find($value = '')
+	{
+		$condition = [];
+		if (func_num_args() == 2) {
+			$table     = func_get_arg(0);
+			$condition = func_get_arg(1);
+		} else {
+			$table = $this->_table;
+			if (is_array($value)) {
+				$condition = $value;
+			} else {
+				$condition = [$this->primaryKey => $value];
+			}
+		}
 
-        $res = new stdClass;
-        if ($data->num_rows() > 0) {
-            $res = $data->result();
-        }
+		return $this->db->get_where($table, $condition);
+	}
 
-        return $res;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function findAll()
+	{
+		if (func_num_args() > 0) {
+			$table = func_get_arg(0);
+		} else {
+			$table = $this->_table;
+		}
 
-    public function insert($data)
-    {
-        return $this->db->insert($this->_table, $data);
-    }
+		return $this->db->get($table);
+	}
 
-    public function insert_batch($data)
-    {
-        return $this->db->insert_batch($this->_table, $data);
-    }
+	public function get_all()
+	{
+		$data = $this->db->get($this->_table);
 
-    public function update($data, $condition)
-    {
-        return $this->db->update($this->_table, $data, $condition);
-    }
+		$res = new stdClass;
+		if ($data->num_rows() > 0) {
+			$res = $data->result();
+		}
 
-    public function delete($condition)
-    {
-        return $this->db->delete($this->_table, $condition);
-    }
+		return $res;
+	}
 
-    public function is_exist($condition)
-    {
-        $row = $this->db->get_where($this->_table, $condition)->num_rows();
+	public function insert($data)
+	{
+		return $this->db->insert($this->_table, $data);
+	}
 
-        $exist = false;
-        if ($row > 0) {
-            $exist = true;
-        }
+	public function insert_batch($data)
+	{
+		return $this->db->insert_batch($this->_table, $data);
+	}
 
-        return $exist;
-    }
+	public function update($data, $condition)
+	{
+		return $this->db->update($this->_table, $data, $condition);
+	}
 
-    public function id_exist($id)
-    {
-        $row = $this->db->get_where($this->_table, ['id' => $id])->num_rows();
+	public function delete($condition)
+	{
+		return $this->db->delete($this->_table, $condition);
+	}
 
-        $exist = true;
-        if ($row > 0) {
-            $exist = false;
-        }
+	public function is_exist($condition)
+	{
+		$row = $this->db->get_where($this->_table, $condition)->num_rows();
 
-        return $exist;
-    }
+		$exist = false;
+		if ($row > 0) {
+			$exist = true;
+		}
+
+		return $exist;
+	}
+
+	public function id_exist($id)
+	{
+		$row = $this->db->get_where($this->_table, ['id' => $id])->num_rows();
+
+		$exist = true;
+		if ($row > 0) {
+			$exist = false;
+		}
+
+		return $exist;
+	}
 }

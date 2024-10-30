@@ -9,7 +9,7 @@
 		</ol>
 		<p class="text-justify indent-10">Aplikasi ini di buat menggunakan : </p>
 		<ol class="list-disc px-4">
-			<li><code><a href="https://www.php.net/">PHP</a></code></li>
+			<li><code><a href="https://www.php.net/">PHP 7.4</a></code></li>
 			<li><code><a href="https://codeigniter.com/userguide3/index.html">Framework Codeigniter 3</a></code></li>
 			<li><code><a href="https://tailwindcss.com/">Tailwindcss</a></code></li>
 		</ol>

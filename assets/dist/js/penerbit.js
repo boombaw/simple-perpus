@@ -121,6 +121,7 @@ $("#btnResetPbt").on("click", function (e) {
 });
 
 function updatePenerbit(e) {
+	$("#nama_penerbit").focus();
 	let button = e.getAttribute("data-obj");
 	let buttonData = JSON.parse(button);
 

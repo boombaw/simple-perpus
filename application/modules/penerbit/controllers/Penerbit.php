@@ -99,15 +99,15 @@ class Penerbit extends MY_Controller
 
 		$id_penerbit = $data['pbtid'];
 
-		$condition = ['name' => trim($nama_penerbit)];
-		$exist = $this->penerbit->is_exist($condition);
+		$condition = ['id' => trim($id_penerbit)];
+		$exist = $this->penerbit->find($condition);
 
 		$response = [];
 
-		if ($exist) {
+		if ($exist->num_rows() == 0) {
 			$response = [
 				'code' => 400,
-				'message' => 'Penerbit sudah terdaftar'
+				'message' => 'Penerbit tidak terdaftar'
 			];
 		} else {
 
